@@ -25,7 +25,12 @@ const register = async (req, res) => {
       _id: user._id,
     };
 
-    res.cookie('token', token, { maxAge: 60 * 60 * 1000 });
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      maxAge: 60 * 60 * 1000
+    });
     res.status(201).json({
       user: reply,
       message: "Registered Successfully"
@@ -59,7 +64,12 @@ const login = async (req, res) => {
       { expiresIn: 60 * 60 }
     );
 
-    res.cookie('token', token, { maxAge: 60 * 60 * 1000 });
+   res.cookie('token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      maxAge: 60 * 60 * 1000
+  });
     res.status(201).json({
       user: reply,
       message: "Login Successful"
@@ -94,22 +104,5 @@ const logout = async(req,res)=>{
 
 
 
-const deleteProfile = async(req,res)=>{
-  
-    try{
-       const userId = req.info._id;
-      
-    // userSchema delete
-    await User.findByIdAndDelete(userId);
- 
-    res.status(200).send("Deleted Successfully");
 
-    }
-    catch(err){
-      
-        res.status(500).send("Internal Server Error");
-    }
-}
-
-
-module.exports = {register, login,logout,deleteProfile};
+module.exports = {register, login,logout};
