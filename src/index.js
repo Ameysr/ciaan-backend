@@ -11,12 +11,12 @@ const userRouter = require('./routes/userRoute');
 
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://ciaan-frontend.onrender.com',
     credentials: true 
 }))
 
-app.use(express.json()); // the data come form req.body is in the form of jaso so we have to convert it in the form of the javascript object 
-app.use(cookieParser()); // same like express.jason we have to also contert it in the jason to js obj 
+app.use(express.json()); 
+app.use(cookieParser()); 
 
 app.use('/user',authRouter);
 app.use('/post',postRouter);
